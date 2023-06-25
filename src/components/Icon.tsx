@@ -1,4 +1,4 @@
-import { IconProps } from '../types/types';
+import { IconProps } from '../../types/types';
 
 const Icon = ({ name, size, className }: IconProps): JSX.Element => {
   if (name === 'flag') {

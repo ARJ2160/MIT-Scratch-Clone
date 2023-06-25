@@ -4,17 +4,13 @@ import { events } from '../../events/events';
 import { useState } from 'react';
 
 const TopBar = () => {
-  const [blocksJoined, setBlocksJoined] = useState<boolean>(false);
   const [codes, setCodes] = useState<string>('');
 
   useCustomEventListener(events.BLOCK_JOINED, (codes: string) => {
-    console.log('BLOCKS JOINED');
-    setBlocksJoined(true);
     setCodes(codes);
   });
 
   const onGreenFlagClick = () => {
-    console.log(blocksJoined);
     emitCustomEvent(events.COMPUTE_COMMANDS, codes);
   };
 

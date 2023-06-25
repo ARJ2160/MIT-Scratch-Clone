@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { CommandContextProps } from '../types/types';
+import { CommandContextProps } from '../../types/types';
 
 const CommandsContext = createContext<CommandContextProps>({
   commands: [],

@@ -12,3 +12,14 @@ export interface CommandContextProps {
   > | null;
   setCommands: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
+export interface ActionProps {
+  onDragStart: (
+    event: any,
+    nodeType: string,
+    text: string,
+    code: string,
+    moveTo?: string,
+    XYPos?: { x: number; y: number }
+  ) => void;
+}
