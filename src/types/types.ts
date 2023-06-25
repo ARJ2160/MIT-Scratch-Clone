@@ -5,6 +5,7 @@ export interface IconProps {
 }
 
 export interface CommandContextProps {
-  commands: string;
-  setCommands: (command: string) => void;
+  commands: string[];
+  imageRef: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>,HTMLImageElement> | null,
+  setCommands: React.Dispatch<React.SetStateAction<string[]>>
 }
