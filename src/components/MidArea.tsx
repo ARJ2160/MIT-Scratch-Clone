@@ -1,8 +1,7 @@
-import React, {
+import {
   useState,
   useRef,
   useCallback,
-  useEffect,
   useContext,
 } from "react";
 import ReactFlow, {
@@ -18,6 +17,8 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import { Sidebar } from "./Sidebar";
 import CommandsContext from "../context/commandContext";
+import { events } from '../../events/events';
+import { emitCustomEvent } from 'react-custom-events';
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -28,19 +29,28 @@ export const MidArea = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
-
+  
   const onConnect: OnConnect = (params) => {
+    let connectedNodes: string[] | any[] = []
     if (params.source !== params.target) {
       setEdges((eds) => addEdge(params, eds));
-      const connectedNodes = nodes.map((node: Node) => {
+      connectedNodes = nodes.map((node: any) => {
         if (params.source || params.target === node.id) {
-          return node.data.label
+          return node.code
         }
       })
-      console.log("connected", nodes, connectedNodes);
-      setCommands("");
+      setCommands((prevCommands) => [...prevCommands, ...connectedNodes]);
+    }
+    console.log(connectedNodes, commands)
+    if (connectedNodes.length > 1) {
+      emitCustomEvent(events.BLOCK_JOINED, { connectedNodes: connectedNodes})
     }
   };
+
+  // const deleteNode = (id: any) => {
+  //   const newNodes = nodes.filter(node => node.id !== id)
+  //   setNodes(newNodes);
+  // }
 
   const onDragOver = useCallback((event: any) => {
     event.preventDefault();
@@ -55,6 +65,7 @@ export const MidArea = () => {
         reactFlowWrapper?.current?.getBoundingClientRect();
       const type = event.dataTransfer.getData("application/reactflow");
       const name = event.dataTransfer.getData("nodeText");
+      const code = event.dataTransfer.getData("code");
 
       // check if the dropped element is valid
       if (typeof type === "undefined" || !type) {
@@ -65,11 +76,13 @@ export const MidArea = () => {
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
       });
-      const newNode: Node = {
+      const newNode: any = {
         id: getId(),
         type,
         position,
         data: { label: name },
+        deletable: true,
+         code,
       };
       setNodes((nds) => nds.concat(newNode));
     },
@@ -87,7 +100,7 @@ export const MidArea = () => {
             >
               <ReactFlow
                 nodes={nodes}
-                edges={edges}
+              edges={edges}
                 // edgeTypes={edgeTypes}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
