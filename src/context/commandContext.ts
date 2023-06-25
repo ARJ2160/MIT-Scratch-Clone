@@ -1,10 +1,10 @@
-import { createContext } from "react";
-import { CommandContextProps } from "../types/types";
+import { createContext } from 'react';
+import { CommandContextProps } from '../types/types';
 
 const CommandsContext = createContext<CommandContextProps>({
   commands: [],
   imageRef: null,
-  setCommands: () => {},
+  setCommands: () => {}
 });
 
 export default CommandsContext;

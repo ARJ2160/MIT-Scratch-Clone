@@ -1,7 +1,6 @@
-import { BaseEdge, EdgeLabelRenderer, getBezierPath } from "reactflow";
+import { BaseEdge, EdgeLabelRenderer, getBezierPath } from 'reactflow';
 
 export default function CustomEdge({
-  id,
   sourceX,
   sourceY,
   targetX,
@@ -9,7 +8,7 @@ export default function CustomEdge({
   sourcePosition,
   targetPosition,
   style = {},
-  markerEnd,
+  markerEnd
 }: any) {
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
@@ -17,7 +16,7 @@ export default function CustomEdge({
     sourcePosition,
     targetX,
     targetY,
-    targetPosition,
+    targetPosition
   });
 
   // const onEdgeClick = (evt, id) => {
@@ -35,15 +34,15 @@ export default function CustomEdge({
       <EdgeLabelRenderer>
         <div
           style={{
-            position: "absolute",
+            position: 'absolute',
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
             fontSize: 12,
-            pointerEvents: "all",
+            pointerEvents: 'all'
           }}
-          className="nodrag nopan"
+          className='nodrag nopan'
         >
           <button
-            className="edgebutton"
+            className='edgebutton'
             // onClick={(event) => onEdgeClick(event, id)}
           >
             X
