@@ -7,13 +7,13 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
   const [XYPosition, setXYPosition] = useState({ x: 12, y: 12312 });
 
   const motionClasses =
-    'flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer';
+    'flex flex-row flex-wrap bg-blue-500 text-white px-2 py-2 my-2 text-sm cursor-pointer';
   return (
     <div>
       <div
         className={motionClasses}
         onDragStart={event =>
-          onDragStart(event, 'output', 'Move 10 steps', 'move')
+          onDragStart(event, 'default', 'Move 10 steps', 'move')
         }
         draggable
       >
@@ -24,7 +24,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
         onDragStart={event =>
           onDragStart(
             event,
-            'output',
+            'default',
             'Turn 15 degrees anticlockwise',
             'anticlockwise'
           )
@@ -38,7 +38,12 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
       <div
         className={motionClasses}
         onDragStart={event =>
-          onDragStart(event, 'output', 'Turn 15 degrees clockwise', 'clockwise')
+          onDragStart(
+            event,
+            'default',
+            'Turn 15 degrees clockwise',
+            'clockwise'
+          )
         }
         draggable
       >
@@ -51,7 +56,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
         onDragStart={event =>
           onDragStart(
             event,
-            'output',
+            'default',
             `Go To ${positionOption}`,
             'goToPosition',
             positionOption
@@ -77,7 +82,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
         onDragStart={event =>
           onDragStart(
             event,
-            'output',
+            'default',
             `Go To X: ${XYPosition.x} Y: ${XYPosition.y}`,
             'goToPositionXY',
             undefined,

@@ -43,6 +43,8 @@ export const MidArea = () => {
     let connectedNodes: string[] = [];
     let randomPosition: any = '';
     let XYPos: any = {};
+    let message: any = '';
+    let timer: any = 0;
     if (params.source !== params.target) {
       setEdges(eds => addEdge(params, eds));
       connectedNodes = nodes.map((node: any) => {
@@ -55,8 +57,13 @@ export const MidArea = () => {
         (node: any) => node.moveTo === 'random-position'
       );
       XYPos = nodes.find((node: any) => node.XYPosition.x && node.XYPosition.y);
+      message = nodes.find((node: any) => node.message);
+      timer = nodes.find((node: any) => node.timer);
     }
-    if (connectedNodes.length > 1) {
+    if (
+      connectedNodes.find(node => node === 'flagClick') &&
+      connectedNodes.length > 1
+    ) {
       if (!randomPosition?.moveTo) {
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes
@@ -67,10 +74,22 @@ export const MidArea = () => {
           moveTo: randomPosition.moveTo
         });
       }
-      if (XYPos.XYPosition) {
+      if (XYPos?.XYPosition) {
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           xyPosition: XYPos.XYPosition
+        });
+      }
+      if (message) {
+        emitCustomEvent(events.BLOCK_JOINED, {
+          connectedNodes: connectedNodes,
+          message: message.message
+        });
+      }
+      if (timer) {
+        emitCustomEvent(events.BLOCK_JOINED, {
+          connectedNodes: connectedNodes,
+          timer: timer.timer
         });
       }
     }
@@ -93,6 +112,8 @@ export const MidArea = () => {
       const moveTo = event.dataTransfer.getData('moveTo');
       const XPosition = event.dataTransfer.getData('XPosition');
       const YPosition = event.dataTransfer.getData('YPosition');
+      const message = event.dataTransfer.getData('message');
+      const timer = event.dataTransfer.getData('timer');
 
       // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {
@@ -111,7 +132,9 @@ export const MidArea = () => {
         deletable: true,
         code,
         moveTo,
-        XYPosition: { x: XPosition, y: YPosition }
+        XYPosition: { x: XPosition, y: YPosition },
+        message,
+        timer
       };
       setNodes(nds => nds.concat(newNode));
     },

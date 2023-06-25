@@ -3,7 +3,7 @@ import Icon from '../Icon';
 
 const EventActions = ({ onDragStart }: ActionProps) => {
   const eventClasses =
-    'flex flex-row flex-wrap bg-yellow-500 text-white px-2 py-1 my-2 text-sm cursor-pointer';
+    'flex flex-row flex-wrap bg-yellow-500 text-white px-2 py-2 my-2 text-sm cursor-pointer';
   return (
     <div>
       <div
