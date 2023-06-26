@@ -22,11 +22,11 @@ export const Sidebar = () => {
       event.dataTransfer.setData('XPosition', XYPos?.x);
       event.dataTransfer.setData('YPosition', XYPos?.y);
     }
-    if (message) {
+    if (message && !timer) {
       event.dataTransfer.setData('message', message);
     }
-    if (timer) {
-      event.dataTransfer.setData('timer', timer);
+    if (message && timer) {
+      event.dataTransfer.setData('messageWithTimer', { message, timer });
     }
     event.dataTransfer.effectAllowed = 'move';
   };

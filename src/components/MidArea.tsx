@@ -4,7 +4,6 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   Background,
-  ReactFlowProvider,
   Node,
   Edge,
   OnConnect,
@@ -18,9 +17,8 @@ import { emitCustomEvent } from 'react-custom-events';
 import CustomInputNode from './CustomInputNode';
 import CustomOutputNode from './CustomOutputNode';
 import CustomEdge from './DeleteEdge';
-
-let id = 0;
-const getId = () => `dndnode_${id++}`;
+import { v4 as uuidv4 } from 'uuid';
+import 'reactflow/dist/base.css';
 
 const nodeTypes = {
   input: CustomInputNode,
@@ -80,13 +78,13 @@ export const MidArea = () => {
           xyPosition: XYPos.XYPosition
         });
       }
-      if (message) {
+      if (message && !timer) {
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           message: message.message
         });
       }
-      if (timer) {
+      if (message && timer) {
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           timer: timer.timer
@@ -113,7 +111,6 @@ export const MidArea = () => {
       const XPosition = event.dataTransfer.getData('XPosition');
       const YPosition = event.dataTransfer.getData('YPosition');
       const message = event.dataTransfer.getData('message');
-      const timer = event.dataTransfer.getData('timer');
 
       // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {
@@ -125,7 +122,7 @@ export const MidArea = () => {
         y: event.clientY - reactFlowBounds.top
       });
       const newNode: any = {
-        id: getId(),
+        id: uuidv4(),
         type,
         position,
         data: { label: name },
@@ -133,8 +130,7 @@ export const MidArea = () => {
         code,
         moveTo,
         XYPosition: { x: XPosition, y: YPosition },
-        message,
-        timer
+        message: message
       };
       setNodes(nds => nds.concat(newNode));
     },
@@ -142,35 +138,33 @@ export const MidArea = () => {
   );
 
   return (
-    <ReactFlowProvider>
-      <div className='flex-1 h-screen overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2'>
-        <Sidebar />
-        <div className='flex-1'>
-          <div
-            className='reactflow-wrapper h-screen w-full'
-            ref={reactFlowWrapper}
+    <div className='flex-1 h-screen overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2'>
+      <Sidebar />
+      <div className='flex-1'>
+        <div
+          className='reactflow-wrapper h-screen w-full'
+          ref={reactFlowWrapper}
+        >
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onInit={setReactFlowInstance}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            fitView
+            nodesDraggable
           >
-            <ReactFlow
-              nodes={nodes}
-              edges={edges}
-              nodeTypes={nodeTypes}
-              edgeTypes={edgeTypes}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onConnect={onConnect}
-              onInit={setReactFlowInstance}
-              onDrop={onDrop}
-              onDragOver={onDragOver}
-              fitView
-              nodesDraggable
-            >
-              <Controls />
-              <Background />
-            </ReactFlow>
-          </div>
+            <Controls />
+            <Background />
+          </ReactFlow>
         </div>
       </div>
-    </ReactFlowProvider>
+    </div>
   );
 };
 

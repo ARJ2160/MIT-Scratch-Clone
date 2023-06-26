@@ -42,9 +42,7 @@ export default function CatSprite() {
             const x = Math.floor(Math.random() * 30);
             const y = Math.floor(Math.random() * 30);
             if (imageRef.current) {
-              imageRef.current.style.transform =
-                imageRef.current.style.transform +
-                ` translateX(${x}rem) translateY(${y}rem)`;
+              imageRef.current.style.transform = ` translateX(${x}rem) translateY(${y}rem)`;
             }
           }
           //  if (data.moveTo === "mouse-pointer") {
@@ -60,10 +58,7 @@ export default function CatSprite() {
           if (imageRef.current) {
             const X = data.xyPosition.x;
             const Y = data.xyPosition.y;
-            imageRef.current.style.transform =
-              imageRef.current.style.transform + ` translateX(${X}rem)`;
-            imageRef.current.style.transform =
-              imageRef.current.style.transform + ` translateY(${Y}rem)`;
+            imageRef.current.style.transform = ` translateX(${X}rem) translateY(${Y}rem)`;
           }
         }
         if (code === 'saySomething') {
@@ -86,7 +81,7 @@ export default function CatSprite() {
   });
 
   return (
-    <>
+    <div id='preview' className='flex-none h-screen w-full overflow-y-auto p-2'>
       <div className='relative'>
         <img ref={imageRef} src={CatImg} alt='' />
         {showMessage && (
@@ -95,6 +90,6 @@ export default function CatSprite() {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }

@@ -39,11 +39,12 @@ const LooksActions = ({ onDragStart }: ActionProps) => {
           onDragStart(
             event,
             'default',
-            `Say ${messageWithTimer} for ${timer}`,
-            'saySomethingWithTimer',
+            `Say ${messageWithTimer} for ${timer} seconds`,
+            'saySomething',
             undefined,
             undefined,
-            messageWithTimer
+            messageWithTimer,
+            timer
           )
         }
         draggable

@@ -4,7 +4,7 @@ import Icon from '../Icon';
 
 const MotionActions = ({ onDragStart }: ActionProps) => {
   const [positionOption, setPositionOption] = useState('random-position');
-  const [XYPosition, setXYPosition] = useState({ x: 12, y: 12312 });
+  const [XYPosition, setXYPosition] = useState({ x: 12, y: 11 });
 
   const motionClasses =
     'flex flex-row flex-wrap bg-blue-500 text-white px-2 py-2 my-2 text-sm cursor-pointer';
