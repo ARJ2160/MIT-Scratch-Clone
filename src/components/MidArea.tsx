@@ -11,7 +11,6 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Sidebar } from './Sidebar';
-import CommandsContext from '../context/commandContext';
 import { events } from '../../events/events';
 import { emitCustomEvent } from 'react-custom-events';
 import CustomInputNode from './CustomInputNode';
@@ -31,7 +30,6 @@ const edgeTypes = {
 };
 
 export const MidArea = () => {
-  const { setCommands } = useContext(CommandsContext);
   const reactFlowWrapper = useRef<any>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>([]);
@@ -51,7 +49,6 @@ export const MidArea = () => {
           return node.code;
         }
       });
-      setCommands(prevCommands => [...prevCommands, ...connectedNodes]);
       randomPosition = nodes.find(
         (node: any) => node.moveTo === 'random-position'
       );

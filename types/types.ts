@@ -4,15 +4,6 @@ export interface IconProps {
   className: string;
 }
 
-export interface CommandContextProps {
-  commands: string[];
-  imageRef: React.DetailedHTMLProps<
-    React.ImgHTMLAttributes<HTMLImageElement>,
-    HTMLImageElement
-  > | null;
-  setCommands: React.Dispatch<React.SetStateAction<string[]>>;
-}
-
 export interface ActionProps {
   onDragStart: (
     event: any,
