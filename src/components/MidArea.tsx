@@ -43,6 +43,7 @@ export const MidArea = () => {
     let XYPos: any = {};
     let message: any = '';
     let messageWithTimer: any = 0;
+    let delayTimer: any = 0;
     if (params.source !== params.target) {
       setEdges(eds => addEdge(params, eds));
       connectedNodes = nodes.map((node: any) => {
@@ -61,6 +62,7 @@ export const MidArea = () => {
         (node: any) =>
           node.messageWithTimer.message && node.messageWithTimer.timer
       );
+      delayTimer = nodes.find((node: any) => node.delayTimer);
     }
     if (
       connectedNodes.find(node => node === 'flagClick') &&
@@ -89,11 +91,16 @@ export const MidArea = () => {
         });
       }
       if (messageWithTimer) {
-        console.log('bothhhhhhhh', messageWithTimer);
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           message: messageWithTimer.messageWithTimer.message,
           timer: messageWithTimer.messageWithTimer.timer
+        });
+      }
+      if (delayTimer) {
+        emitCustomEvent(events.BLOCK_JOINED, {
+          connectedNodes: connectedNodes,
+          delayTimer: delayTimer.delayTimer
         });
       }
     }
@@ -119,7 +126,8 @@ export const MidArea = () => {
       const message = event.dataTransfer.getData('message');
       const msgTimer1 = event.dataTransfer.getData('msgTimer1');
       const msgTimer2 = event.dataTransfer.getData('msgTimer2');
-      console.log('THIS=>', msgTimer1, msgTimer2);
+      const delayTimer = event.dataTransfer.getData('delayTimer');
+
       // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {
         return;
@@ -142,7 +150,8 @@ export const MidArea = () => {
         messageWithTimer: {
           message: msgTimer1,
           timer: msgTimer2
-        }
+        },
+        delayTimer
       };
       setNodes(nds => nds.concat(newNode));
     },

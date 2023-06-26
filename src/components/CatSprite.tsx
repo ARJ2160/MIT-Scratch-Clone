@@ -60,10 +60,7 @@ export default function CatSprite() {
         if (code === 'saySomething') {
           setShowMessage(true);
           setMessage(data.message);
-          console.log('with timer', data);
           if (data.message && data.timer) {
-            console.log('with timereeeeee');
-
             setTimeout(() => {
               setShowMessage(false);
             }, data.timer * 1000);
@@ -71,6 +68,7 @@ export default function CatSprite() {
         }
         if (code === 'waitForSeconds' || code === 'waitForTimer') {
           await wait(data.timer);
+          console.log('waitForSeconds');
         }
       }
     }

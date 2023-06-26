@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ActionProps } from '../../../types/types';
 
 const ControlActions = ({ onDragStart }: ActionProps) => {
-  const [timer, setTimer] = useState<number>(0);
+  const [delayTimer, setDelayTimer] = useState<number>(0);
   const [repeatTimer, setRepeatTimer] = useState<number>(0);
 
   const eventClasses =
@@ -15,12 +15,13 @@ const ControlActions = ({ onDragStart }: ActionProps) => {
           onDragStart(
             event,
             'default',
-            `Wait ${timer} seconds`,
+            `Wait ${delayTimer} seconds`,
             'waitForSeconds',
             undefined,
             undefined,
             undefined,
-            timer
+            undefined,
+            delayTimer
           )
         }
         className={eventClasses}
@@ -28,8 +29,8 @@ const ControlActions = ({ onDragStart }: ActionProps) => {
       >
         {'Wait'}
         <input
-          value={timer}
-          onChange={e => setTimer(e.target.value as unknown as number)}
+          value={delayTimer}
+          onChange={e => setDelayTimer(e.target.value as unknown as number)}
           className='rounded-3xl text-center w-24 ml-2 mx-2 hover:border-0 focus:border-0 text-black'
           type='number'
         />
@@ -43,6 +44,7 @@ const ControlActions = ({ onDragStart }: ActionProps) => {
             'default',
             `Repeat ${repeatTimer}`,
             'waitRepeatTimer',
+            undefined,
             undefined,
             undefined,
             undefined,

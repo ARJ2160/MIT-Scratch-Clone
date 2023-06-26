@@ -12,7 +12,8 @@ export const Sidebar = () => {
     moveTo?: string,
     XYPos?: { x: number; y: number },
     message?: string,
-    timer?: number
+    timer?: number,
+    delayTimer?: number
   ) => {
     event.dataTransfer.setData('application/reactflow', nodeType);
     event.dataTransfer.setData('nodeText', text);
@@ -23,13 +24,14 @@ export const Sidebar = () => {
       event.dataTransfer.setData('YPosition', XYPos?.y);
     }
     if (message && !timer) {
-      console.log('only mesge');
       event.dataTransfer.setData('message', message);
     }
     if (message && timer) {
-      console.log("mesge and timer")
       event.dataTransfer.setData('msgTimer1', message);
       event.dataTransfer.setData('msgTimer2', timer);
+    }
+    if (delayTimer) {
+      event.dataTransfer.setData('delayTimer', delayTimer);
     }
     event.dataTransfer.effectAllowed = 'move';
   };
@@ -51,11 +53,11 @@ export const Sidebar = () => {
         <div className='w-6 h-6 rounded-full bg-purple-500 ml-6'></div>
       </div>
       <LooksActions onDragStart={onDragStart} />
-      <div className='font-bold flex'>
+      {/* <div className='font-bold flex'>
         {'Control'}
         <div className='w-6 h-6 rounded-full bg-orange-500 ml-6'></div>
       </div>
-      <ControlActions onDragStart={onDragStart} />
+      <ControlActions onDragStart={onDragStart} /> */}
     </div>
   );
 };
