@@ -3,7 +3,7 @@
 ## Initial Setup done with -
 
 ```sh
- pnpm create next-app --example with-tailwindcss with-tailwindcss-app
+ pnpm create vite@latest
 ```
 
 ## 🛠 Installation & Set Up
