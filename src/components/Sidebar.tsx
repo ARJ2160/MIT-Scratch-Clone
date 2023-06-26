@@ -23,10 +23,13 @@ export const Sidebar = () => {
       event.dataTransfer.setData('YPosition', XYPos?.y);
     }
     if (message && !timer) {
+      console.log('only mesge');
       event.dataTransfer.setData('message', message);
     }
     if (message && timer) {
-      event.dataTransfer.setData('messageWithTimer', { message, timer });
+      console.log("mesge and timer")
+      event.dataTransfer.setData('msgTimer1', message);
+      event.dataTransfer.setData('msgTimer2', timer);
     }
     event.dataTransfer.effectAllowed = 'move';
   };

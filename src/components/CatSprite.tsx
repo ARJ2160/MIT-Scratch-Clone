@@ -47,14 +47,6 @@ export default function CatSprite() {
                 ` translateX(${x}rem) translateY(${y}rem)`;
             }
           }
-          //  if (data.moveTo === "mouse-pointer") {
-          //   document.addEventListener("mousemove", (e: MouseEvent) => {
-          //     if (imageRef.current) {
-          //       imageRef.current.style.backgroundPositionX = `${e.clientX}px`;
-          //       imageRef.current.style.backgroundPositionY = `${e.clientY}px`
-          //     }
-          //   })
-          // }
         }
         if (code === 'goToPositionXY') {
           if (imageRef.current) {
@@ -68,6 +60,14 @@ export default function CatSprite() {
         if (code === 'saySomething') {
           setShowMessage(true);
           setMessage(data.message);
+          console.log('with timer', data);
+          if (data.message && data.timer) {
+            console.log('with timereeeeee');
+
+            setTimeout(() => {
+              setShowMessage(false);
+            }, data.timer * 1000);
+          }
         }
         if (code === 'waitForSeconds' || code === 'waitForTimer') {
           await wait(data.timer);

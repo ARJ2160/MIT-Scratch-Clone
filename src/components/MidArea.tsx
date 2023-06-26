@@ -42,7 +42,7 @@ export const MidArea = () => {
     let randomPosition: any = '';
     let XYPos: any = {};
     let message: any = '';
-    let timer: any = 0;
+    let messageWithTimer: any = 0;
     if (params.source !== params.target) {
       setEdges(eds => addEdge(params, eds));
       connectedNodes = nodes.map((node: any) => {
@@ -54,9 +54,13 @@ export const MidArea = () => {
       randomPosition = nodes.find(
         (node: any) => node.moveTo === 'random-position'
       );
+      console.log('NODES', nodes);
       XYPos = nodes.find((node: any) => node.XYPosition.x && node.XYPosition.y);
       message = nodes.find((node: any) => node.message);
-      timer = nodes.find((node: any) => node.timer);
+      messageWithTimer = nodes.find(
+        (node: any) =>
+          node.messageWithTimer.message && node.messageWithTimer.timer
+      );
     }
     if (
       connectedNodes.find(node => node === 'flagClick') &&
@@ -78,16 +82,18 @@ export const MidArea = () => {
           xyPosition: XYPos.XYPosition
         });
       }
-      if (message && !timer) {
+      if (message) {
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           message: message.message
         });
       }
-      if (message && timer) {
+      if (messageWithTimer) {
+        console.log('bothhhhhhhh', messageWithTimer);
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          timer: timer.timer
+          message: messageWithTimer.messageWithTimer.message,
+          timer: messageWithTimer.messageWithTimer.timer
         });
       }
     }
@@ -111,7 +117,9 @@ export const MidArea = () => {
       const XPosition = event.dataTransfer.getData('XPosition');
       const YPosition = event.dataTransfer.getData('YPosition');
       const message = event.dataTransfer.getData('message');
-
+      const msgTimer1 = event.dataTransfer.getData('msgTimer1');
+      const msgTimer2 = event.dataTransfer.getData('msgTimer2');
+      console.log('THIS=>', msgTimer1, msgTimer2);
       // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {
         return;
@@ -130,7 +138,11 @@ export const MidArea = () => {
         code,
         moveTo,
         XYPosition: { x: XPosition, y: YPosition },
-        message: message
+        message: message,
+        messageWithTimer: {
+          message: msgTimer1,
+          timer: msgTimer2
+        }
       };
       setNodes(nds => nds.concat(newNode));
     },
