@@ -15,7 +15,7 @@ export default function CatSprite() {
       }, ms * 1000)
     );
 
-  useCustomEventListener(events.COMPUTE_COMMANDS, async (data: any) => {
+  useCustomEventListener(events.COMPUTE_COMMANDS, (data: any) => {
     console.log(data.connectedNodes);
     if (data.connectedNodes) {
       for (const code of data.connectedNodes) {
@@ -67,7 +67,7 @@ export default function CatSprite() {
           }
         }
         if (code === 'waitForSeconds' || code === 'waitForTimer') {
-          await wait(data.timer);
+          wait(data.timer);
           console.log('waitForSeconds');
         }
       }

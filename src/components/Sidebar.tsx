@@ -1,4 +1,5 @@
 // import ControlActions from './ControlActions/ControlActions';
+import ControlActions from './ControlActions/ControlActions';
 import EventActions from './EventActions/EventActions';
 import LooksActions from './LooksActions/LooksActions';
 import MotionActions from './MotionActions/MotionActions';
@@ -53,11 +54,11 @@ export const Sidebar = () => {
         <div className='w-6 h-6 rounded-full bg-purple-500 ml-6'></div>
       </div>
       <LooksActions onDragStart={onDragStart} />
-      {/* <div className='font-bold flex'>
+      <div className='font-bold flex'>
         {'Control'}
         <div className='w-6 h-6 rounded-full bg-orange-500 ml-6'></div>
       </div>
-      <ControlActions onDragStart={onDragStart} /> */}
+      <ControlActions onDragStart={onDragStart} />
     </div>
   );
 };
