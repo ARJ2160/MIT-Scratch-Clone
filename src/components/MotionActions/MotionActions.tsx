@@ -7,7 +7,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
   const [XYPosition, setXYPosition] = useState({ x: 12, y: 11 });
 
   const motionClasses =
-    'flex flex-row flex-wrap bg-blue-500 text-white px-2 py-2 my-2 text-sm cursor-pointer';
+    'flex flex-row items-center flex-wrap bg-blue-500 text-white px-2 py-2 my-2 text-sm cursor-pointer';
   return (
     <div>
       <div
@@ -56,7 +56,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
         onDragStart={event =>
           onDragStart(
             event,
-            'default',
+            'dropdown',
             `Go To ${positionOption}`,
             'goToPosition',
             positionOption
@@ -82,7 +82,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
         onDragStart={event =>
           onDragStart(
             event,
-            'default',
+            'doubleDropdown',
             `Go To X: ${XYPosition.x} Y: ${XYPosition.y}`,
             'goToPositionXY',
             undefined,

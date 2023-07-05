@@ -8,7 +8,6 @@
 4. Click the red flag to reset all styles
 5. For eg. drag and drop the 'When flag clicked and 'Turn 15 degrees' blocks and hit the green flag
 
-
 <p align="center">
     <img src="https://ik.imagekit.io/36athv2v82c8/Screenshot_2023-06-27_093058_lUPUdLxz2.png?updatedAt=1687838475015" />
 </p>

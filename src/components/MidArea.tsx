@@ -15,18 +15,21 @@ import { events } from '../../events/events';
 import { emitCustomEvent } from 'react-custom-events';
 import CustomInputNode from './CustomInputNode';
 import CustomOutputNode from './CustomOutputNode';
-import CustomEdge from './DeleteEdge';
+import CustomEdge from './CustomEdge';
 import { v4 as uuidv4 } from 'uuid';
 import 'reactflow/dist/base.css';
+// import CustomDropdownNode from './CustomDropdownNode';
+// import CustomDoubleDropdownNode from './CustomDoubleDropdownNode';
 
 const nodeTypes = {
   input: CustomInputNode,
   output: CustomOutputNode
+  // dropdown: CustomDropdownNode,
+  // doubleDropdown: CustomDoubleDropdownNode
 };
 
 const edgeTypes = {
-  input: CustomEdge,
-  output: CustomEdge
+  default: CustomEdge
 };
 
 export const MidArea = () => {
@@ -52,7 +55,6 @@ export const MidArea = () => {
       randomPosition = nodes.find(
         (node: any) => node.moveTo === 'random-position'
       );
-      console.log('NODES', nodes);
       XYPos = nodes.find((node: any) => node.XYPosition.x && node.XYPosition.y);
       message = nodes.find((node: any) => node.message);
       messageWithTimer = nodes.find(
@@ -61,15 +63,18 @@ export const MidArea = () => {
       );
       delayTimer = nodes.find((node: any) => node.delayTimer);
     }
+    console.log('random POSITION', randomPosition);
     if (
       connectedNodes.find(node => node === 'flagClick') &&
       connectedNodes.length > 1
     ) {
-      if (!randomPosition?.moveTo) {
-        emitCustomEvent(events.BLOCK_JOINED, {
-          connectedNodes: connectedNodes
-        });
-      } else if (randomPosition?.moveTo) {
+      // if (!randomPosition?.moveTo) {
+      //   emitCustomEvent(events.BLOCK_JOINED, {
+      //     connectedNodes: connectedNodes
+      //   });
+      // }
+      if (randomPosition?.moveTo) {
+        console.log('move to');
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           moveTo: randomPosition.moveTo
@@ -82,6 +87,7 @@ export const MidArea = () => {
         });
       }
       if (message) {
+        console.log('mesageeeeeee');
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           message: message.message

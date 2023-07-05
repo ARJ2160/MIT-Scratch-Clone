@@ -6,8 +6,6 @@ import {
   getBezierPath
 } from 'reactflow';
 
-import './buttonedge.css';
-
 const onEdgeClick = (
   evt: React.MouseEvent<SVGSVGElement, MouseEvent>,
   id: string

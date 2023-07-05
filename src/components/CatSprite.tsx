@@ -16,7 +16,6 @@ export default function CatSprite() {
     );
 
   useCustomEventListener(events.COMPUTE_COMMANDS, (data: any) => {
-    console.log(data.connectedNodes);
     if (data.connectedNodes) {
       for (const code of data.connectedNodes) {
         if (code === 'move') {
@@ -38,14 +37,13 @@ export default function CatSprite() {
           }
         }
         if (code === 'goToPosition') {
-          if (data.moveTo === 'random-position') {
-            const x = Math.floor(Math.random() * 30);
-            const y = Math.floor(Math.random() * 30);
-            if (imageRef.current) {
-              imageRef.current.style.transform =
-                imageRef.current.style.transform +
-                ` translateX(${x}rem) translateY(${y}rem)`;
-            }
+          console.log('GO TO POS', data);
+          const x = Math.floor(Math.random() * 30);
+          const y = Math.floor(Math.random() * 30);
+          if (imageRef.current) {
+            imageRef.current.style.transform =
+              imageRef.current.style.transform +
+              ` translateX(${x}rem) translateY(${y}rem)`;
           }
         }
         if (code === 'goToPositionXY') {
@@ -58,6 +56,7 @@ export default function CatSprite() {
           }
         }
         if (code === 'saySomething') {
+          console.log('SAY THIS');
           setShowMessage(true);
           setMessage(data.message);
           if (data.message && data.timer) {
