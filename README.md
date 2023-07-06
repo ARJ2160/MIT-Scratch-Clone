@@ -14,8 +14,8 @@
 
 ## KNOWN ISSUES
 
-1. Pairing different blocks from different sections which require input has trouble working synchronously
-2. Pairing up the 'go to X Y block' with a display message block gives an error
+1. ~~ ~~Pairing different blocks from different sections which require input has trouble working synchronously.~~ ~~
+2. ~~ ~~Pairing up the 'go to X Y block' with a display message block gives an error.~~ ~~
 3. The "When this sprite is clicked" block doesn't work as of now. Need to add a custom node component that has an onClick listener which triggers program execution.
 4. Control blocks have problems following synchronous behavior with other blocks
 
@@ -29,9 +29,9 @@
 
 1. Install dependencies using pnpm
 
-   ```sh
-   pnpm i
-   ```
+```sh
+pnpm i
+```
 
 2. Start the development server
 
