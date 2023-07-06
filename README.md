@@ -18,6 +18,8 @@
 2. ~~ ~~Pairing up the 'go to X Y block' with a display message block gives an error.~~ ~~
 3. The "When this sprite is clicked" block doesn't work as of now. Need to add a custom node component that has an onClick listener which triggers program execution.
 4. Control blocks have problems following synchronous behavior with other blocks
+5. Can't Delete Nodes
+6. Can't Delete Edges
 
 ## Initial Setup done with -
 
