@@ -10,6 +10,7 @@ export interface ActionProps {
     nodeType: string,
     text: string,
     code: string,
+    rotate?: number,
     moveTo?: string,
     XYPos?: { x: number; y: number },
     message?: string,

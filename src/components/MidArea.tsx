@@ -40,6 +40,7 @@ export const MidArea = () => {
 
   const onConnect: OnConnect = params => {
     let connectedNodes: string[] = [];
+    let rotate: any = 0;
     let randomPosition: any = '';
     let XYPos: any = {};
     let message: any = '';
@@ -52,6 +53,7 @@ export const MidArea = () => {
           return node.code;
         }
       });
+      rotate = nodes.find((node: any) => node.rotate);
       randomPosition = nodes.find(
         (node: any) => node.moveTo === 'random-position'
       );
@@ -72,6 +74,12 @@ export const MidArea = () => {
       //     connectedNodes: connectedNodes
       //   });
       // }
+      if (rotate) {
+        emitCustomEvent(events.BLOCK_JOINED, {
+          connectedNodes: connectedNodes,
+          rotate: rotate.rotate
+        });
+      }
       if (randomPosition?.moveTo) {
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
@@ -120,6 +128,7 @@ export const MidArea = () => {
       const type = event.dataTransfer.getData('application/reactflow');
       const name = event.dataTransfer.getData('nodeText');
       const code = event.dataTransfer.getData('code');
+      const rotate = event.dataTransfer.getData('rotate');
       const moveTo = event.dataTransfer.getData('moveTo');
       const XPosition = event.dataTransfer.getData('XPosition');
       const YPosition = event.dataTransfer.getData('YPosition');
@@ -144,6 +153,7 @@ export const MidArea = () => {
         data: { label: name },
         deletable: true,
         code,
+        rotate,
         moveTo,
         XYPosition: { x: XPosition, y: YPosition },
         message: message,

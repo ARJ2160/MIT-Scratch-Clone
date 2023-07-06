@@ -10,6 +10,7 @@ export const Sidebar = () => {
     nodeType: string,
     text: string,
     code: string,
+    rotate?: number,
     moveTo?: string,
     XYPos?: { x: number; y: number },
     message?: string,
@@ -19,6 +20,7 @@ export const Sidebar = () => {
     event.dataTransfer.setData('application/reactflow', nodeType);
     event.dataTransfer.setData('nodeText', text);
     event.dataTransfer.setData('code', code);
+    rotate && event.dataTransfer.setData('rotate', rotate);
     moveTo && event.dataTransfer.setData('moveTo', moveTo);
     if (XYPos && XYPos.x !== 0 && XYPos.y !== 0) {
       event.dataTransfer.setData('XPosition', XYPos?.x);

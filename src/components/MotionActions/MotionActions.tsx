@@ -3,6 +3,8 @@ import { ActionProps } from '../../../types/types';
 import Icon from '../Icon';
 
 const MotionActions = ({ onDragStart }: ActionProps) => {
+  const [clockwise, setClockwise] = useState<number>(15);
+  const [antiClockwise, setAntiClockwise] = useState<number>(15);
   const [positionOption, setPositionOption] = useState('random-position');
   const [XYPosition, setXYPosition] = useState({ x: 12, y: 11 });
 
@@ -25,15 +27,23 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
           onDragStart(
             event,
             'default',
-            'Turn 15 degrees anticlockwise',
-            'anticlockwise'
+            `Turn ${antiClockwise} degrees anticlockwise`,
+            'anticlockwise',
+            antiClockwise
           )
         }
         draggable
       >
         {'Turn '}
+        <input
+          value={antiClockwise}
+          className='rounded-lg text-black pl-2 mx-2 w-10 h-6'
+          onChange={e => setAntiClockwise(parseInt(e.target.value))}
+          name={antiClockwise as unknown as string}
+          type='number'
+        ></input>
+        {'degrees'}
         <Icon name='undo' size={15} className='text-white mx-2' />
-        {'15 degrees'}
       </div>
       <div
         className={motionClasses}
@@ -41,15 +51,23 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
           onDragStart(
             event,
             'default',
-            'Turn 15 degrees clockwise',
-            'clockwise'
+            `Turn ${clockwise} degrees clockwise`,
+            'clockwise',
+            clockwise
           )
         }
         draggable
       >
         {'Turn '}
+        <input
+          value={clockwise}
+          className='rounded-lg text-black pl-2 mx-2 w-10 h-6'
+          onChange={e => setClockwise(parseInt(e.target.value))}
+          name={clockwise as unknown as string}
+          type='number'
+        ></input>
+        {'degrees'}
         <Icon name='redo' size={15} className='text-white mx-2' />
-        {'15 degrees'}
       </div>
       <div
         className={motionClasses}
@@ -59,6 +77,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
             'dropdown',
             `Go To ${positionOption}`,
             'goToPosition',
+            undefined,
             positionOption
           )
         }
@@ -85,6 +104,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
             'doubleDropdown',
             `Go To X: ${XYPosition.x} Y: ${XYPosition.y}`,
             'goToPositionXY',
+            undefined,
             undefined,
             XYPosition
           )

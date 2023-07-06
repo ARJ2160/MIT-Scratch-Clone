@@ -27,13 +27,13 @@ export default function CatSprite() {
         if (code === 'clockwise') {
           if (imageRef.current) {
             imageRef.current.style.transform =
-              imageRef.current.style.transform + ` rotate(15deg)`;
+              imageRef.current.style.transform + ` rotate(${data.rotate}deg)`;
           }
         }
         if (code === 'anticlockwise') {
           if (imageRef.current) {
             imageRef.current.style.transform =
-              imageRef.current.style.transform + ` rotate(-15deg)`;
+              imageRef.current.style.transform + ` rotate(-${data.rotate}deg)`;
           }
         }
         if (code === 'goToPosition') {
