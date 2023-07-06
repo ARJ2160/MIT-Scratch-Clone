@@ -61,7 +61,10 @@ const LooksActions = ({ onDragStart }: ActionProps) => {
         {'for '}
         <input
           value={timer}
-          onChange={e => setTimer(e.target.value as unknown as number)}
+          onChange={e =>
+            parseInt(e.target.value) > 0 &&
+            setTimer(parseInt(e.target.value) as unknown as number)
+          }
           className='rounded-3xl text-center w-8 ml-2 mx-2 hover:border-0 focus:border-0 text-black'
           type='number'
         />{' '}
