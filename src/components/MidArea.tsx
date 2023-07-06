@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import ReactFlow, {
   addEdge,
   useNodesState,
@@ -37,8 +37,13 @@ export const MidArea = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
+  const [commands, setCommands] = useState({});
 
+  useEffect(() => {
+    console.log('>>', commands);
+  }, [commands]);
   const onConnect: OnConnect = params => {
+    console.log(params);
     let connectedNodes: string[] = [];
     let rotate: any = 0;
     let randomPosition: any = '';
@@ -64,45 +69,80 @@ export const MidArea = () => {
           node.messageWithTimer.message && node.messageWithTimer.timer
       );
       delayTimer = nodes.find((node: any) => node.delayTimer);
+      console.log('xypos', XYPos);
     }
     if (
       connectedNodes.find(node => node === 'flagClick') &&
       connectedNodes.length > 1
     ) {
-      // if (!randomPosition?.moveTo) {
-      //   emitCustomEvent(events.BLOCK_JOINED, {
-      //     connectedNodes: connectedNodes
-      //   });
-      // }
       if (rotate) {
+        setCommands(prev => {
+          return {
+            ...prev,
+            rotate: rotate.rotate
+          };
+        });
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          rotate: rotate.rotate
+          rotate: rotate.rotate,
+          ...commands
         });
       }
       if (randomPosition?.moveTo) {
+        setCommands(prev => {
+          return {
+            ...prev,
+            moveTo: randomPosition.moveTo
+          };
+        });
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          moveTo: randomPosition.moveTo
+          moveTo: randomPosition.moveTo,
+          ...commands
         });
       }
       if (XYPos?.XYPosition) {
+        setCommands(prev => {
+          return {
+            ...prev,
+            xPosition: XYPos.XYPosition.x,
+            yPosition: XYPos.XYPosition.y
+          };
+        });
+        console.log('>>', XYPos);
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          xyPosition: XYPos.XYPosition
+          xPosition: XYPos.XYPosition.x,
+          yPosition: XYPos.XYPosition.y,
+          ...commands
         });
       }
       if (message) {
+        setCommands(prev => {
+          return {
+            ...prev,
+            message: message.message
+          };
+        });
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          message: message.message
+          message: message.message,
+          ...commands
         });
       }
       if (messageWithTimer) {
+        setCommands(prev => {
+          return {
+            ...prev,
+            message: messageWithTimer.messageWithTimer.message,
+            timer: messageWithTimer.messageWithTimer.timer
+          };
+        });
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           message: messageWithTimer.messageWithTimer.message,
-          timer: messageWithTimer.messageWithTimer.timer
+          timer: messageWithTimer.messageWithTimer.timer,
+          ...commands
         });
       }
       if (delayTimer) {

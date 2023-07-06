@@ -16,6 +16,7 @@ export default function CatSprite() {
     );
 
   useCustomEventListener(events.COMPUTE_COMMANDS, (data: any) => {
+    console.log(data);
     if (data.connectedNodes) {
       for (const code of data.connectedNodes) {
         if (code === 'move') {
@@ -46,9 +47,10 @@ export default function CatSprite() {
           }
         }
         if (code === 'goToPositionXY') {
+          console.log('hereeeeeeeeeee', data);
           if (imageRef.current) {
-            const X = data.xyPosition.x;
-            const Y = data.xyPosition.y;
+            const X = data.xPosition;
+            const Y = data.yPosition;
             imageRef.current.style.transform =
               imageRef.current.style.transform +
               ` translateX(${X}rem) translateY(${Y}rem)`;

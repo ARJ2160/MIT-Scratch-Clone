@@ -7,6 +7,7 @@ const TopBar = () => {
   const [codes, setCodes] = useState<string>('');
 
   useCustomEventListener(events.BLOCK_JOINED, (codes: string) => {
+    console.log('BLOCKS JOINED', codes);
     setCodes(codes);
   });
 
