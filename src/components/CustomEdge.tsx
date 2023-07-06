@@ -3,18 +3,13 @@ import {
   BaseEdge,
   EdgeLabelRenderer,
   EdgeProps,
+  // EdgeRemoveChange,
+  // applyEdgeChanges,
   getBezierPath
+  // useEdgesState
 } from 'reactflow';
 
-const onEdgeClick = (
-  evt: React.MouseEvent<SVGSVGElement, MouseEvent>,
-  id: string
-) => {
-  evt.stopPropagation();
-  alert(`remove ${id}`);
-};
-
-export default function CustomEdge({
+const CustomEdge = ({
   id,
   sourceX,
   sourceY,
@@ -24,7 +19,7 @@ export default function CustomEdge({
   targetPosition,
   style = {},
   markerEnd
-}: EdgeProps) {
+}: EdgeProps) => {
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -33,6 +28,20 @@ export default function CustomEdge({
     targetY,
     targetPosition
   });
+
+  const onEdgeClick = (
+    evt: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    id: string
+  ) => {
+    console.log('heree', id);
+    evt.stopPropagation();
+    // const params: EdgeRemoveChange = {
+    //   type: 'remove',
+    //   id
+    // };
+    // setEdges(els => applyEdgeChanges([params], els));
+    // setEdges(eds => eds.filter(e => e.id !== id));
+  };
 
   return (
     <>
@@ -49,14 +58,14 @@ export default function CustomEdge({
           }}
           className='nodrag nopan'
         >
-          {/* <div>
+          <div>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
               strokeWidth={1.5}
               stroke='currentColor'
-              className='w-4 h-4 rotate-45 text-red-600 hover:text-red-500'
+              className='w-4 h-4 rotate-45 text-red-600 hover:text-red-500 cursor-pointer'
               onClick={event => onEdgeClick(event, id)}
             >
               <path
@@ -65,15 +74,11 @@ export default function CustomEdge({
                 d='M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z'
               />
             </svg>
-          </div> */}
-          <button
-            className='edgebutton'
-            onClick={(event: any) => onEdgeClick(event, id)}
-          >
-            X
-          </button>
+          </div>
         </div>
       </EdgeLabelRenderer>
     </>
   );
-}
+};
+
+export default CustomEdge;

@@ -63,7 +63,6 @@ export const MidArea = () => {
       );
       delayTimer = nodes.find((node: any) => node.delayTimer);
     }
-    console.log('random POSITION', randomPosition);
     if (
       connectedNodes.find(node => node === 'flagClick') &&
       connectedNodes.length > 1
@@ -74,7 +73,6 @@ export const MidArea = () => {
       //   });
       // }
       if (randomPosition?.moveTo) {
-        console.log('move to');
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           moveTo: randomPosition.moveTo
@@ -87,7 +85,6 @@ export const MidArea = () => {
         });
       }
       if (message) {
-        console.log('mesageeeeeee');
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           message: message.message

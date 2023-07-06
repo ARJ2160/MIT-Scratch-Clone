@@ -37,7 +37,6 @@ export default function CatSprite() {
           }
         }
         if (code === 'goToPosition') {
-          console.log('GO TO POS', data);
           const x = Math.floor(Math.random() * 30);
           const y = Math.floor(Math.random() * 30);
           if (imageRef.current) {
@@ -56,7 +55,6 @@ export default function CatSprite() {
           }
         }
         if (code === 'saySomething') {
-          console.log('SAY THIS');
           setShowMessage(true);
           setMessage(data.message);
           if (data.message && data.timer) {
@@ -67,7 +65,6 @@ export default function CatSprite() {
         }
         if (code === 'waitForSeconds' || code === 'waitForTimer') {
           wait(data.timer);
-          console.log('waitForSeconds');
         }
       }
     }

@@ -33,3 +33,14 @@
 .tooltip {
   @apply absolute bottom-10 left-24 w-auto p-2 m-2 min-w-max rounded-md shadow-md text-xs bg-black text-white transition-transform duration-100 origin-left;
 }
+
+.custom-dropdown-node,
+.custom-doubleDropdown-node {
+  @apply flex justify-center items-center bg-white rounded-md p-4 border-2 h-12;
+}
+
+.custom-dropdown-node label {
+  display: block;
+  color: #777;
+  font-size: 12px;
+}
