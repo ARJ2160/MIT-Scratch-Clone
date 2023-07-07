@@ -3,11 +3,18 @@ import {
   BaseEdge,
   EdgeLabelRenderer,
   EdgeProps,
-  // EdgeRemoveChange,
-  // applyEdgeChanges,
+  EdgeRemoveChange,
   getBezierPath
-  // useEdgesState
 } from 'reactflow';
+import { shallow } from 'zustand/shallow';
+import useStore from '../../store/store';
+
+const selector = (state: any) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  onNodesChange: state.onNodesChange,
+  onEdgesChange: state.onEdgesChange
+});
 
 const CustomEdge = ({
   id,
@@ -28,19 +35,18 @@ const CustomEdge = ({
     targetY,
     targetPosition
   });
+  const { onEdgesChange } = useStore(selector, shallow);
 
   const onEdgeClick = (
     evt: React.MouseEvent<SVGSVGElement, MouseEvent>,
     id: string
   ) => {
-    console.log('heree', id);
     evt.stopPropagation();
-    // const params: EdgeRemoveChange = {
-    //   type: 'remove',
-    //   id
-    // };
-    // setEdges(els => applyEdgeChanges([params], els));
-    // setEdges(eds => eds.filter(e => e.id !== id));
+    const params: EdgeRemoveChange = {
+      type: 'remove',
+      id
+    };
+    onEdgesChange([params]);
   };
 
   return (
@@ -52,8 +58,6 @@ const CustomEdge = ({
             position: 'absolute',
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
             fontSize: 12,
-            // everything inside EdgeLabelRenderer has no pointer events by default
-            // if you have an interactive element, set pointer-events: all
             pointerEvents: 'all'
           }}
           className='nodrag nopan'
