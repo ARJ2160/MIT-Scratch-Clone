@@ -20,6 +20,9 @@ dependencies:
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
+  zustand:
+    specifier: ^4.3.9
+    version: 4.3.9(react@18.2.0)
 
 devDependencies:
   '@types/react':
@@ -641,7 +644,7 @@ packages:
       classcat: 5.0.4
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      zustand: 4.3.8(react@18.2.0)
+      zustand: 4.3.9(react@18.2.0)
     transitivePeerDependencies:
       - immer
     dev: false
@@ -656,7 +659,7 @@ packages:
       classcat: 5.0.4
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      zustand: 4.3.8(react@18.2.0)
+      zustand: 4.3.9(react@18.2.0)
     transitivePeerDependencies:
       - immer
     dev: false
@@ -677,7 +680,7 @@ packages:
       d3-zoom: 3.0.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      zustand: 4.3.8(react@18.2.0)
+      zustand: 4.3.9(react@18.2.0)
     transitivePeerDependencies:
       - immer
     dev: false
@@ -696,7 +699,7 @@ packages:
       d3-zoom: 3.0.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      zustand: 4.3.8(react@18.2.0)
+      zustand: 4.3.9(react@18.2.0)
     transitivePeerDependencies:
       - immer
     dev: false
@@ -713,7 +716,7 @@ packages:
       d3-selection: 3.0.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      zustand: 4.3.8(react@18.2.0)
+      zustand: 4.3.9(react@18.2.0)
     transitivePeerDependencies:
       - immer
     dev: false
@@ -728,7 +731,7 @@ packages:
       classcat: 5.0.4
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      zustand: 4.3.8(react@18.2.0)
+      zustand: 4.3.9(react@18.2.0)
     transitivePeerDependencies:
       - immer
     dev: false
@@ -3296,8 +3299,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zustand@4.3.8(react@18.2.0):
-    resolution: {integrity: sha512-4h28KCkHg5ii/wcFFJ5Fp+k1J3gJoasaIbppdgZFO4BPJnsNxL0mQXBSFgOgAdCdBj35aDTPvdAJReTMntFPGg==}
+  /zustand@4.3.9(react@18.2.0):
+    resolution: {integrity: sha512-Tat5r8jOMG1Vcsj8uldMyqYKC5IZvQif8zetmLHs9WoZlntTHmIoNM8TpLRY31ExncuUvUOXehd0kvahkuHjDw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       immer: '>=9.0'

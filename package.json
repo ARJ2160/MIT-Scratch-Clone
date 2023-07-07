@@ -16,7 +16,8 @@
     "react-custom-events": "^1.1.1",
     "react-dom": "^18.2.0",
     "reactflow": "11.7.4",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

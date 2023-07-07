@@ -1,13 +1,10 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import ReactFlow, {
-  addEdge,
-  useNodesState,
-  useEdgesState,
   Background,
-  Node,
-  Edge,
   OnConnect,
-  Controls
+  Controls,
+  NodeAddChange,
+  Connection
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Sidebar } from './Sidebar';
@@ -18,32 +15,36 @@ import CustomOutputNode from './CustomOutputNode';
 import CustomEdge from './CustomEdge';
 import { v4 as uuidv4 } from 'uuid';
 import 'reactflow/dist/base.css';
-// import CustomDropdownNode from './CustomDropdownNode';
-// import CustomDoubleDropdownNode from './CustomDoubleDropdownNode';
+import useStore from '../../store/store';
+import { shallow } from 'zustand/shallow';
 
 const nodeTypes = {
   input: CustomInputNode,
   output: CustomOutputNode
-  // dropdown: CustomDropdownNode,
-  // doubleDropdown: CustomDoubleDropdownNode
 };
 
 const edgeTypes = {
   default: CustomEdge
 };
 
+const selector = (state: any) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  onNodesChange: state.onNodesChange,
+  onEdgesChange: state.onEdgesChange,
+  onDragOver: state.onDragOver,
+  onConnect: state.onConnect
+});
+
 export const MidArea = () => {
   const reactFlowWrapper = useRef<any>(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
   const [commands, setCommands] = useState({});
 
-  useEffect(() => {
-    console.log('>>', commands);
-  }, [commands]);
-  const onConnect: OnConnect = params => {
-    console.log(params);
+  const { nodes, edges, onNodesChange, onEdgesChange, onDragOver, onConnect } =
+    useStore(selector, shallow);
+
+  const onConnectNode: OnConnect = (params: Connection) => {
     let connectedNodes: string[] = [];
     let rotate: any = 0;
     let randomPosition: any = '';
@@ -52,7 +53,7 @@ export const MidArea = () => {
     let messageWithTimer: any = 0;
     let delayTimer: any = 0;
     if (params.source !== params.target) {
-      setEdges(eds => addEdge(params, eds));
+      onConnect(params);
       connectedNodes = nodes.map((node: any) => {
         if (params.source || params.target === node.id) {
           return node.code;
@@ -69,7 +70,6 @@ export const MidArea = () => {
           node.messageWithTimer.message && node.messageWithTimer.timer
       );
       delayTimer = nodes.find((node: any) => node.delayTimer);
-      console.log('xypos', XYPos);
     }
     if (
       connectedNodes.find(node => node === 'flagClick') &&
@@ -154,11 +154,6 @@ export const MidArea = () => {
     }
   };
 
-  const onDragOver = useCallback((event: any) => {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
-  }, []);
-
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault();
@@ -203,7 +198,11 @@ export const MidArea = () => {
         },
         delayTimer
       };
-      setNodes(nds => nds.concat(newNode));
+      const addNewNode: NodeAddChange = {
+        item: newNode,
+        type: 'add'
+      };
+      onNodesChange([addNewNode]);
     },
     [reactFlowInstance]
   );
@@ -223,7 +222,7 @@ export const MidArea = () => {
             edgeTypes={edgeTypes}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
+            onConnect={onConnectNode}
             onInit={setReactFlowInstance}
             onDrop={onDrop}
             onDragOver={onDragOver}
