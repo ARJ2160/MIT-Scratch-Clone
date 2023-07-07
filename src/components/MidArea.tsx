@@ -11,16 +11,16 @@ import { Sidebar } from './Sidebar';
 import { events } from '../../events/events';
 import { emitCustomEvent } from 'react-custom-events';
 import CustomInputNode from './CustomInputNode';
-import CustomOutputNode from './CustomOutputNode';
 import CustomEdge from './CustomEdge';
 import { v4 as uuidv4 } from 'uuid';
 import 'reactflow/dist/base.css';
 import useStore from '../../store/store';
 import { shallow } from 'zustand/shallow';
+import CustomDefaultNode from './CustomDefaultNode';
 
 const nodeTypes = {
   input: CustomInputNode,
-  output: CustomOutputNode
+  default: CustomDefaultNode
 };
 
 const edgeTypes = {
