@@ -33,7 +33,7 @@ const CustomInputNode = (props: NodeProps<NodeData>) => {
       <CustomHandle
         type='source'
         position={Position.Bottom}
-        isConnectable={1}
+        isConnectable={2}
       />
       <div className='custom-node relative'>
         <div>
