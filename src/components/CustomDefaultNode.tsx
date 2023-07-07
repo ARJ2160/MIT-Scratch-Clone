@@ -1,14 +1,14 @@
 import { memo } from 'react';
 import { NodeProps, Position } from 'reactflow';
-import CustomHandle from './CustomHandle';
 import { shallow } from 'zustand/shallow';
 import useStore from '../../store/store';
+import CustomHandle from './CustomHandle';
 
 type NodeData = {
   label: string;
 };
 
-const CustomInputNode = (props: NodeProps<NodeData>) => {
+const CustomDefaultNode = (props: NodeProps<NodeData>) => {
   const selector = (state: any) => ({
     nodes: state.nodes,
     edges: state.edges,
@@ -30,11 +30,7 @@ const CustomInputNode = (props: NodeProps<NodeData>) => {
 
   return (
     <div>
-      <CustomHandle
-        type='source'
-        position={Position.Bottom}
-        isConnectable={1}
-      />
+      <CustomHandle type='target' position={Position.Top} isConnectable={2} />
       <div className='custom-node relative'>
         <div>
           <svg
@@ -55,8 +51,13 @@ const CustomInputNode = (props: NodeProps<NodeData>) => {
         </div>
         {props.data.label}
       </div>
+      <CustomHandle
+        type='source'
+        position={Position.Bottom}
+        isConnectable={2}
+      />
     </div>
   );
 };
 
-export default memo(CustomInputNode);
+export default memo(CustomDefaultNode);
