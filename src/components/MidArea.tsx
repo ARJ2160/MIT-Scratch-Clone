@@ -45,7 +45,6 @@ export const MidArea = () => {
     useStore(selector, shallow);
 
   const onConnectNode: OnConnect = (params: Connection) => {
-    console.log('connect');
     let connectedNodes: string[] = [];
     let rotate: any = 0;
     let randomPosition: any = '';
