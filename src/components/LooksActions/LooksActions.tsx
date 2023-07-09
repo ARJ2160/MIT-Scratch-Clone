@@ -41,7 +41,7 @@ const LooksActions = ({ onDragStart }: ActionProps) => {
             event,
             'default',
             `Say ${messageWithTimer} for ${timer} seconds`,
-            'saySomething',
+            'saySomethingWithTimer',
             undefined,
             undefined,
             undefined,

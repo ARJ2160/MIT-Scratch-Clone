@@ -1,5 +1,10 @@
 import { memo } from 'react';
-import { NodeProps, Position } from 'reactflow';
+import {
+  NodeProps,
+  NodeRemoveChange,
+  Position,
+  getConnectedEdges
+} from 'reactflow';
 import { shallow } from 'zustand/shallow';
 import useStore from '../../store/store';
 import CustomHandle from './CustomHandle';
@@ -13,18 +18,54 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
     nodes: state.nodes,
     edges: state.edges,
     onNodesChange: state.onNodesChange,
-    onEdgesChange: state.onEdgesChange
+    onEdgesChange: state.onEdgesChange,
+    clickNodeCommand: state.clickNodeCommand,
+    setClickNodeCommand: state.setClickNodeCommand
   });
-  const { nodes, onNodesChange } = useStore(selector, shallow);
+  const { nodes, edges, onNodesChange, clickNodeCommand, setClickNodeCommand } =
+    useStore(selector, shallow);
 
   const onDeleteNode = (node: NodeProps<NodeData>) => {
     const nodeToDeleteId = nodes.find((x: any) => {
       return x.id === node.id;
     }).id;
-    const deleteNodeConfig = {
+    const deleteNodeConfig: NodeRemoveChange = {
       id: nodeToDeleteId,
       type: 'remove'
     };
+
+    console.log('>>', props, getConnectedEdges(nodes, edges));
+
+    const nodeToDeleteCode = nodes.find(
+      (x: any) => x.id === nodeToDeleteId
+    )?.code;
+
+    if (nodeToDeleteCode) {
+      switch (nodeToDeleteCode) {
+        case 'clockwise':
+        case 'anticlockwise':
+          const { rotate, ...rest } = clickNodeCommand;
+          setClickNodeCommand(rest, true);
+          break;
+        case 'move':
+          const { move, ...rest1 } = clickNodeCommand;
+          setClickNodeCommand(rest1, true);
+          break;
+        case 'goToPosition':
+          const { randomPosition, ...rest2 } = clickNodeCommand;
+          setClickNodeCommand(rest2, true);
+          break;
+        case 'goToPositionXY':
+          const { xPosition, yPosition, ...rest3 } = clickNodeCommand;
+          setClickNodeCommand(rest3, true);
+          break;
+        case 'saySomething':
+          const { message, timer, ...rest4 } = clickNodeCommand;
+          setClickNodeCommand(rest4, true);
+          break;
+      }
+    }
+
     onNodesChange([deleteNodeConfig]);
   };
 

@@ -58,6 +58,10 @@ export default function CatSprite() {
         if (code === 'saySomething') {
           setShowMessage(true);
           setMessage(data.message);
+        }
+        if (code === 'saySomethingWithTimer') {
+          setShowMessage(true);
+          setMessage(data.message);
           if (data.message && data.timer) {
             setTimeout(() => {
               setShowMessage(false);

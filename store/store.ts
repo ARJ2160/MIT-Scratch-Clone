@@ -52,13 +52,15 @@ const useStore = create<RFState>()(
       });
     },
     clickNodeCommand: {},
-    setClickNodeCommand: (command: any) => {
-      set(state => ({
+    setClickNodeCommand: (command: any, replace?: boolean) => {
+      set((state: any) => ({
         ...state,
-        clickNodeCommand: {
-          ...state.clickNodeCommand,
-          ...command
-        }
+        clickNodeCommand: replace
+          ? { ...command }
+          : {
+              ...state.clickNodeCommand,
+              ...command
+            }
       }));
     }
   }))
