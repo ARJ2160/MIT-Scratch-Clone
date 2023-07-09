@@ -33,7 +33,9 @@ const selector = (state: any) => ({
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
   onDragOver: state.onDragOver,
-  onConnect: state.onConnect
+  onConnect: state.onConnect,
+  clickNodeCommand: state.clickNodeCommand,
+  setClickNodeCommand: state.setClickNodeCommand
 });
 
 export const MidArea = () => {
@@ -41,8 +43,16 @@ export const MidArea = () => {
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
   const [commands, setCommands] = useState({});
 
-  const { nodes, edges, onNodesChange, onEdgesChange, onDragOver, onConnect } =
-    useStore(selector, shallow);
+  const {
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    onDragOver,
+    onConnect,
+    // clickNodeCommand,
+    setClickNodeCommand
+  } = useStore(selector, shallow);
 
   const onConnectNode: OnConnect = (params: Connection) => {
     let connectedNodes: string[] = [];
@@ -51,7 +61,8 @@ export const MidArea = () => {
     let XYPos: any = {};
     let message: any = '';
     let messageWithTimer: any = 0;
-    let delayTimer: any = 0;
+    // let delayTimer: any = 0;
+    let move = '';
     if (params.source !== params.target) {
       onConnect(params);
       connectedNodes = nodes.map((node: any) => {
@@ -59,46 +70,64 @@ export const MidArea = () => {
           return node.code;
         }
       });
-      rotate = nodes.find((node: any) => node.rotate);
+      move = nodes.find((node: any) => node.code === 'move')?.code;
+      rotate = nodes.find((node: any) => node.rotate)?.rotate;
       randomPosition = nodes.find(
         (node: any) => node.moveTo === 'random-position'
-      );
+      )?.moveTo;
       XYPos = nodes.find((node: any) => node.XYPosition.x && node.XYPosition.y);
-      message = nodes.find((node: any) => node.message);
+      message = nodes.find((node: any) => node.message)?.message;
       messageWithTimer = nodes.find(
         (node: any) =>
           node.messageWithTimer.message && node.messageWithTimer.timer
       );
-      delayTimer = nodes.find((node: any) => node.delayTimer);
+      // delayTimer = nodes.find((node: any) => node.delayTimer);
     }
     if (
       connectedNodes.find(node => node === 'flagClick') &&
       connectedNodes.length > 1
     ) {
+      if (move === 'move') {
+        setCommands(prev => {
+          return {
+            ...prev,
+            move
+          };
+        });
+        setClickNodeCommand({
+          move
+        });
+      }
       if (rotate) {
         setCommands(prev => {
           return {
             ...prev,
-            rotate: rotate.rotate
+            rotate
           };
         });
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          rotate: rotate.rotate,
+          rotate,
           ...commands
         });
+        setClickNodeCommand({
+          rotate
+        });
       }
-      if (randomPosition?.moveTo) {
+      if (randomPosition) {
         setCommands(prev => {
           return {
             ...prev,
-            moveTo: randomPosition.moveTo
+            randomPosition
           };
         });
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          moveTo: randomPosition.moveTo,
+          randomPosition,
           ...commands
+        });
+        setClickNodeCommand({
+          randomPosition
         });
       }
       if (XYPos?.XYPosition) {
@@ -109,25 +138,31 @@ export const MidArea = () => {
             yPosition: XYPos.XYPosition.y
           };
         });
-        console.log('>>', XYPos);
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
           xPosition: XYPos.XYPosition.x,
           yPosition: XYPos.XYPosition.y,
           ...commands
         });
+        setClickNodeCommand({
+          xPosition: XYPos.XYPosition.x,
+          yPosition: XYPos.XYPosition.y
+        });
       }
       if (message) {
         setCommands(prev => {
           return {
             ...prev,
-            message: message.message
+            message
           };
         });
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          message: message.message,
+          message,
           ...commands
+        });
+        setClickNodeCommand({
+          message
         });
       }
       if (messageWithTimer) {
@@ -144,13 +179,17 @@ export const MidArea = () => {
           timer: messageWithTimer.messageWithTimer.timer,
           ...commands
         });
-      }
-      if (delayTimer) {
-        emitCustomEvent(events.BLOCK_JOINED, {
-          connectedNodes: connectedNodes,
-          delayTimer: delayTimer.delayTimer
+        setClickNodeCommand({
+          message: message.message,
+          timer: messageWithTimer.messageWithTimer.timer
         });
       }
+      // if (delayTimer) {
+      //   emitCustomEvent(events.BLOCK_JOINED, {
+      //     message: messageWithTimer.messageWithTimer.message,
+      //     timer: messageWithTimer.messageWithTimer.timer
+      //   });
+      // }
     }
   };
 

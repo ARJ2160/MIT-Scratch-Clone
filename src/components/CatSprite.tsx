@@ -47,7 +47,6 @@ export default function CatSprite() {
           }
         }
         if (code === 'goToPositionXY') {
-          console.log('hereeeeeeeeeee', data);
           if (imageRef.current) {
             const X = data.xPosition;
             const Y = data.yPosition;
