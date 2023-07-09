@@ -1,5 +1,4 @@
 // import ControlActions from './ControlActions/ControlActions';
-import ControlActions from './ControlActions/ControlActions';
 import EventActions from './EventActions/EventActions';
 import LooksActions from './LooksActions/LooksActions';
 import MotionActions from './MotionActions/MotionActions';
@@ -14,8 +13,7 @@ export const Sidebar = () => {
     moveTo?: string,
     XYPos?: { x: number; y: number },
     message?: string,
-    timer?: number,
-    delayTimer?: number
+    timer?: number
   ) => {
     event.dataTransfer.setData('application/reactflow', nodeType);
     event.dataTransfer.setData('nodeText', text);
@@ -32,9 +30,6 @@ export const Sidebar = () => {
     if (message && timer) {
       event.dataTransfer.setData('msgTimer1', message);
       event.dataTransfer.setData('msgTimer2', timer);
-    }
-    if (delayTimer) {
-      event.dataTransfer.setData('delayTimer', delayTimer);
     }
     event.dataTransfer.effectAllowed = 'move';
   };
@@ -56,11 +51,6 @@ export const Sidebar = () => {
         <div className='w-6 h-6 rounded-full bg-purple-500 ml-6'></div>
       </div>
       <LooksActions onDragStart={onDragStart} />
-      <div className='font-bold flex'>
-        {'Control'}
-        <div className='w-6 h-6 rounded-full bg-orange-500 ml-6'></div>
-      </div>
-      <ControlActions onDragStart={onDragStart} />
     </div>
   );
 };

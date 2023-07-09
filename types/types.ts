@@ -14,7 +14,6 @@ export interface ActionProps {
     moveTo?: string,
     XYPos?: { x: number; y: number },
     message?: string,
-    timer?: number,
-    delayTimer?: number
+    timer?: number
   ) => void;
 }
