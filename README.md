@@ -4,7 +4,8 @@
 
 1. Able to delete edges and nodes
 2. Integrated a central store for managing nodes and edges
-3. Fixed Synchronous execution of almost all blocks
+3. Fixed Synchronous execution of all blocks
+4. Added a play button on input nodes to execute block
 
 ## HOW TO USE
 
@@ -26,6 +27,7 @@
 4. ~~ ~~Control blocks have problems following synchronous behavior with other blocks~~ ~~
 5. ~~ ~~Can't Delete Nodes~~ ~~
 6. ~~ ~~Can't Delete Edges~~ ~~
+7. Individual execution of code blocks isnt working right now.
 
 ## Initial Setup done with -
 
