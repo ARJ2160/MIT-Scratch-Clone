@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import {
+  // EdgeRemoveChange,
   NodeProps,
   NodeRemoveChange,
   Position,
@@ -22,10 +23,17 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
     clickNodeCommand: state.clickNodeCommand,
     setClickNodeCommand: state.setClickNodeCommand
   });
-  const { nodes, edges, onNodesChange, clickNodeCommand, setClickNodeCommand } =
-    useStore(selector, shallow);
+  const {
+    nodes,
+    edges,
+    onNodesChange,
+    // onEdgesChange,
+    clickNodeCommand,
+    setClickNodeCommand
+  } = useStore(selector, shallow);
 
   const onDeleteNode = (node: NodeProps<NodeData>) => {
+    // To delete nodes from store
     const nodeToDeleteId = nodes.find((x: any) => {
       return x.id === node.id;
     }).id;
@@ -33,13 +41,26 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
       id: nodeToDeleteId,
       type: 'remove'
     };
-
-    console.log('>>', props, getConnectedEdges(nodes, edges));
+    onNodesChange([deleteNodeConfig]);
 
     const nodeToDeleteCode = nodes.find(
       (x: any) => x.id === nodeToDeleteId
     )?.code;
 
+    console.log('>>', getConnectedEdges(nodes, edges));
+
+    // To delete edges from store
+    // const edgesToDeleteId = getConnectedEdges(nodes, edges)?.map(x => x.id);
+
+    // edgesToDeleteId.forEach((id: string) => {
+    //   const params: EdgeRemoveChange = {
+    //     type: 'remove',
+    //     id
+    //   };
+    //   onEdgesChange([params]);
+    // });
+
+    // To delete codes from store
     if (nodeToDeleteCode) {
       switch (nodeToDeleteCode) {
         case 'clockwise':
@@ -65,13 +86,11 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
           break;
       }
     }
-
-    onNodesChange([deleteNodeConfig]);
   };
 
   return (
     <div>
-      <CustomHandle type='target' position={Position.Top} isConnectable={2} />
+      <CustomHandle type='target' position={Position.Top} isConnectable={10} />
       <div className='custom-node relative'>
         <div>
           <svg
@@ -95,7 +114,7 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
       <CustomHandle
         type='source'
         position={Position.Bottom}
-        isConnectable={2}
+        isConnectable={10}
       />
     </div>
   );

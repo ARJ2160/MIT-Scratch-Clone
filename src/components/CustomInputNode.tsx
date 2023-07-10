@@ -3,6 +3,9 @@ import { NodeProps, Position } from 'reactflow';
 import CustomHandle from './CustomHandle';
 import { shallow } from 'zustand/shallow';
 import useStore from '../../store/store';
+import Icon from './Icon';
+import { emitCustomEvent } from 'react-custom-events';
+import { events } from '../../events/events';
 
 type NodeData = {
   label: string;
@@ -13,9 +16,13 @@ const CustomInputNode = (props: NodeProps<NodeData>) => {
     nodes: state.nodes,
     edges: state.edges,
     onNodesChange: state.onNodesChange,
-    onEdgesChange: state.onEdgesChange
+    onEdgesChange: state.onEdgesChange,
+    clickNodeCommand: state.clickNodeCommand
   });
-  const { nodes, onNodesChange } = useStore(selector, shallow);
+  const { nodes, onNodesChange, clickNodeCommand } = useStore(
+    selector,
+    shallow
+  );
 
   const onDeleteNode = (node: NodeProps<NodeData>) => {
     const nodeToDeleteId = nodes.find((x: any) => {
@@ -28,13 +35,34 @@ const CustomInputNode = (props: NodeProps<NodeData>) => {
     onNodesChange([deleteNodeConfig]);
   };
 
+  const executeProgram = () => {
+    // console.log('>>', props, nodes);
+    // let clickedNodeTree: string[] = [];
+    // for (let node in nodes) {
+    //   for (let edge in edges) {
+    //     if (
+    //       nodes[node]?.id === edges[edge].target ||
+    //       nodes[node + 1]?.id === edges[edge].source
+    //     ) {
+    //       clickedNodeTree.push(nodes[node]);
+    //     }
+    //   }
+    // }
+
+    // console.log('>>', clickedNodeTree);
+    emitCustomEvent(events.COMPUTE_COMMANDS, clickNodeCommand);
+  };
+
   return (
     <div>
       <CustomHandle
         type='source'
         position={Position.Bottom}
-        isConnectable={2}
+        isConnectable={10}
       />
+      <span className='play' onClick={executeProgram}>
+        <Icon name='play' size={15} className='mx-2' />
+      </span>
       <div className='custom-node relative'>
         <div>
           <svg

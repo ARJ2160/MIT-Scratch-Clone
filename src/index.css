@@ -34,6 +34,23 @@
   @apply absolute bottom-10 left-24 w-auto p-2 m-2 min-w-max rounded-md shadow-md text-xs bg-black text-white transition-transform duration-100 origin-left;
 }
 
+.play::before {
+  content: ' ';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+  top: 0px;
+  right: 100%;
+  transform: translateX(32px) translateY(39px);
+}
+.play {
+  @apply absolute bottom-9 left-10 w-auto p-2 m-2 min-w-max rounded-md shadow-md text-xs bg-black text-green-600 transition-transform duration-100 origin-left;
+}
+
 .custom-dropdown-node,
 .custom-doubleDropdown-node {
   @apply flex justify-center items-center bg-white rounded-md p-4 border-2 h-12;

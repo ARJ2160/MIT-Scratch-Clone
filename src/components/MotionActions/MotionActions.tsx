@@ -92,7 +92,7 @@ const MotionActions = ({ onDragStart }: ActionProps) => {
             name={positionOption}
           >
             <option value='random-position'>random-position</option>
-            <option value='mouse-pointer'>mouse-pointer</option>
+            {/* <option value='mouse-pointer'>mouse-pointer</option> */}
           </select>
         </div>
       </div>

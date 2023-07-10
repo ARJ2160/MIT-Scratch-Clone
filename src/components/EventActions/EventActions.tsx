@@ -17,7 +17,7 @@ const EventActions = ({ onDragStart }: ActionProps) => {
         <Icon name='flag' size={15} className='text-green-600 mx-2' />
         {'clicked'}
       </div>
-      <div
+      {/* <div
         className={eventClasses}
         onDragStart={event =>
           onDragStart(event, 'input', 'When this sprite clicked', 'spriteClick')
@@ -25,7 +25,7 @@ const EventActions = ({ onDragStart }: ActionProps) => {
         draggable
       >
         {'When this sprite clicked'}
-      </div>
+      </div> */}
     </div>
   );
 };

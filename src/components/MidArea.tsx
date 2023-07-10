@@ -81,6 +81,7 @@ export const MidArea = () => {
           node.messageWithTimer.message && node.messageWithTimer.timer
       );
     }
+    setClickNodeCommand({ connectedNodes });
     if (
       connectedNodes.find(node => node === 'flagClick') &&
       connectedNodes.length > 1
@@ -211,22 +212,41 @@ export const MidArea = () => {
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top
       });
-      const newNode: any = {
-        id: uuidv4(),
-        type,
-        position,
-        data: { label: name },
-        deletable: true,
-        code,
-        rotate,
-        moveTo,
-        XYPosition: { x: XPosition, y: YPosition },
-        message: message,
-        messageWithTimer: {
-          message: msgTimer1,
-          timer: msgTimer2
-        }
-      };
+      const newNode: any =
+        type === 'input'
+          ? {
+              uid: uuidv4(),
+              id: uuidv4(),
+              type,
+              position,
+              data: { label: name },
+              deletable: true,
+              code,
+              rotate,
+              moveTo,
+              XYPosition: { x: XPosition, y: YPosition },
+              message: message,
+              messageWithTimer: {
+                message: msgTimer1,
+                timer: msgTimer2
+              }
+            }
+          : {
+              id: uuidv4(),
+              type,
+              position,
+              data: { label: name },
+              deletable: true,
+              code,
+              rotate,
+              moveTo,
+              XYPosition: { x: XPosition, y: YPosition },
+              message: message,
+              messageWithTimer: {
+                message: msgTimer1,
+                timer: msgTimer2
+              }
+            };
       const addNewNode: NodeAddChange = {
         item: newNode,
         type: 'add'
