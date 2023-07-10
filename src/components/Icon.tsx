@@ -56,7 +56,8 @@ const Icon = ({ name, size, className }: IconProps): JSX.Element => {
         />
       </svg>
     );
-  } else if (name === 'stop') {
+  }
+  if (name === 'stop') {
     return (
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -71,7 +72,8 @@ const Icon = ({ name, size, className }: IconProps): JSX.Element => {
         />
       </svg>
     );
-  } else if (name === 'play') {
+  }
+  if (name === 'play') {
     return (
       <svg
         xmlns='http://www.w3.org/2000/svg'
