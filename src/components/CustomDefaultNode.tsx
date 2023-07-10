@@ -4,7 +4,7 @@ import {
   NodeProps,
   NodeRemoveChange,
   Position,
-  getConnectedEdges
+  // getConnectedEdges
 } from 'reactflow';
 import { shallow } from 'zustand/shallow';
 import useStore from '../../store/store';
@@ -25,7 +25,7 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
   });
   const {
     nodes,
-    edges,
+    // edges,
     onNodesChange,
     // onEdgesChange,
     clickNodeCommand,
@@ -33,7 +33,7 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
   } = useStore(selector, shallow);
 
   const onDeleteNode = (node: NodeProps<NodeData>) => {
-    // To delete nodes from store
+    //<---------- TO DELETE NODES FROM STORE ----------->
     const nodeToDeleteId = nodes.find((x: any) => {
       return x.id === node.id;
     }).id;
@@ -42,16 +42,12 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
       type: 'remove'
     };
     onNodesChange([deleteNodeConfig]);
-
     const nodeToDeleteCode = nodes.find(
       (x: any) => x.id === nodeToDeleteId
     )?.code;
 
-    console.log('>>', getConnectedEdges(nodes, edges));
-
-    // To delete edges from store
+    //<---------- TO DELETE EDGES FROM STORE ----------->
     // const edgesToDeleteId = getConnectedEdges(nodes, edges)?.map(x => x.id);
-
     // edgesToDeleteId.forEach((id: string) => {
     //   const params: EdgeRemoveChange = {
     //     type: 'remove',
@@ -60,7 +56,7 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
     //   onEdgesChange([params]);
     // });
 
-    // To delete codes from store
+    //<---------- TO DELETE CODES FROM STORE ----------->
     if (nodeToDeleteCode) {
       switch (nodeToDeleteCode) {
         case 'clockwise':

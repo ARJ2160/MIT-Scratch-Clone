@@ -37,6 +37,9 @@ const CustomInputNode = (props: NodeProps<NodeData>) => {
 
   const executeProgram = () => {
     // console.log('>>', props, nodes);
+
+    //<---------- TO CONSTRUCT THE NODE TREE WHOSE PLAY BUTTON IS CLICKED ----------->
+
     // let clickedNodeTree: string[] = [];
     // for (let node in nodes) {
     //   for (let edge in edges) {
@@ -48,6 +51,8 @@ const CustomInputNode = (props: NodeProps<NodeData>) => {
     //     }
     //   }
     // }
+
+    //<---------- TO CONSTRUCT THE NODE TREE WHOSE PLAY BUTTON IS CLICKED ----------->
 
     // console.log('>>', clickedNodeTree);
     emitCustomEvent(events.COMPUTE_COMMANDS, clickNodeCommand);
