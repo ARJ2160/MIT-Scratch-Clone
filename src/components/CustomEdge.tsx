@@ -10,9 +10,6 @@ import { shallow } from 'zustand/shallow';
 import useStore from '../../store/store';
 
 const selector = (state: any) => ({
-  nodes: state.nodes,
-  edges: state.edges,
-  onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange
 });
 

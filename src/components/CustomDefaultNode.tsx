@@ -3,7 +3,7 @@ import {
   // EdgeRemoveChange,
   NodeProps,
   NodeRemoveChange,
-  Position,
+  Position
   // getConnectedEdges
 } from 'reactflow';
 import { shallow } from 'zustand/shallow';
@@ -42,9 +42,6 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
       type: 'remove'
     };
     onNodesChange([deleteNodeConfig]);
-    const nodeToDeleteCode = nodes.find(
-      (x: any) => x.id === nodeToDeleteId
-    )?.code;
 
     //<---------- TO DELETE EDGES FROM STORE ----------->
     // const edgesToDeleteId = getConnectedEdges(nodes, edges)?.map(x => x.id);
@@ -57,6 +54,9 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
     // });
 
     //<---------- TO DELETE CODES FROM STORE ----------->
+    const nodeToDeleteCode = nodes.find(
+      (x: any) => x.id === nodeToDeleteId
+    )?.code;
     if (nodeToDeleteCode) {
       switch (nodeToDeleteCode) {
         case 'clockwise':

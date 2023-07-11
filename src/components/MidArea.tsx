@@ -93,6 +93,11 @@ export const MidArea = () => {
             move
           };
         });
+        emitCustomEvent(events.BLOCK_JOINED, {
+          connectedNodes: connectedNodes,
+          move,
+          ...commands
+        });
         setClickNodeCommand({
           move
         });
