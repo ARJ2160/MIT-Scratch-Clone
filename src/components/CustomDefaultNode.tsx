@@ -58,28 +58,65 @@ const CustomDefaultNode = (props: NodeProps<NodeData>) => {
       (x: any) => x.id === nodeToDeleteId
     )?.code;
     if (nodeToDeleteCode) {
+      console.log('>>', nodeToDeleteCode);
       switch (nodeToDeleteCode) {
+        case 'flagClick':
+          clickNodeCommand.connectedNodes.splice(
+            clickNodeCommand.connectedNodes.indexOf('flagClick'),
+            1
+          );
+          break;
+        // @ts-ignore
         case 'clockwise':
+          clickNodeCommand.connectedNodes.splice(
+            clickNodeCommand.connectedNodes.indexOf('clockwise'),
+            1
+          );
         case 'anticlockwise':
           const { rotate, ...rest } = clickNodeCommand;
+          clickNodeCommand.connectedNodes.splice(
+            clickNodeCommand.connectedNodes.indexOf('anticlockwise'),
+            1
+          );
           setClickNodeCommand(rest, true);
           break;
         case 'move':
           const { move, ...rest1 } = clickNodeCommand;
+          clickNodeCommand.connectedNodes.splice(
+            clickNodeCommand.connectedNodes.indexOf('move'),
+            1
+          );
           setClickNodeCommand(rest1, true);
           break;
         case 'goToPosition':
           const { randomPosition, ...rest2 } = clickNodeCommand;
+          clickNodeCommand.connectedNodes.splice(
+            clickNodeCommand.connectedNodes.indexOf('goToPosition'),
+            1
+          );
           setClickNodeCommand(rest2, true);
           break;
         case 'goToPositionXY':
           const { xPosition, yPosition, ...rest3 } = clickNodeCommand;
+          clickNodeCommand.connectedNodes.splice(
+            clickNodeCommand.connectedNodes.indexOf('goToPositionXY'),
+            1
+          );
           setClickNodeCommand(rest3, true);
           break;
+        // @ts-ignore
         case 'saySomething':
+        case 'saySomethingWithTimer':
           const { message, timer, ...rest4 } = clickNodeCommand;
+          clickNodeCommand.connectedNodes.splice(
+            clickNodeCommand.connectedNodes.indexOf('saySomething'),
+            1
+          );
+          clickNodeCommand.connectedNodes.splice(
+            clickNodeCommand.connectedNodes.indexOf('saySomethingWithTimer'),
+            1
+          );
           setClickNodeCommand(rest4, true);
-          break;
       }
     }
   };

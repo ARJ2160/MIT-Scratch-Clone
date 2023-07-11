@@ -79,7 +79,7 @@ export const MidArea = () => {
       messageWithTimer = nodes.find(
         (node: any) =>
           node.messageWithTimer.message && node.messageWithTimer.timer
-      );
+      )?.messageWithTimer;
     }
     setClickNodeCommand({ connectedNodes });
     if (
@@ -169,23 +169,24 @@ export const MidArea = () => {
           message
         });
       }
+      console.log('>>', messageWithTimer);
       if (messageWithTimer) {
         setCommands(prev => {
           return {
             ...prev,
-            message: messageWithTimer.messageWithTimer.message,
-            timer: messageWithTimer.messageWithTimer.timer
+            message: messageWithTimer.message,
+            timer: messageWithTimer.timer
           };
         });
         emitCustomEvent(events.BLOCK_JOINED, {
           connectedNodes: connectedNodes,
-          message: messageWithTimer.messageWithTimer.message,
-          timer: messageWithTimer.messageWithTimer.timer,
+          message: messageWithTimer.message,
+          timer: messageWithTimer.timer,
           ...commands
         });
         setClickNodeCommand({
-          message: message.message,
-          timer: messageWithTimer.messageWithTimer.timer
+          message: messageWithTimer.message,
+          timer: messageWithTimer.timer
         });
       }
     }
