@@ -10,7 +10,7 @@ const App = (): JSX.Element => {
         <div className='pt-8'>
           <TopBar />
         </div>
-        <div className='h-screen overflow-hidden flex flex-row  '>
+        <div className='h-screen overflow-hidden flex flex-row'>
           <MidArea />
           <div className='w-1/3 h-screen overflow-hidden flex flex-row bg-white border-t border-l border-gray-200 rounded-tl-xl ml-2'>
             <PreviewArea />
